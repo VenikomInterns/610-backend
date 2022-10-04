@@ -38,6 +38,7 @@ Route::middleware([
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
 });
+//good
 
 
 

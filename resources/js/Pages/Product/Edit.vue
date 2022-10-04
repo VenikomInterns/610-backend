@@ -71,6 +71,7 @@ const props = defineProps({
     categories: Array
 });
 
+//can be refactored to form= useForm({...props.showProduct, ...{_method:'PUT'}})
 const form = useForm({
     _method:"PUT",
     category_id: props.showProduct.category.id,

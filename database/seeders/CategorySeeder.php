@@ -34,5 +34,5 @@ class CategorySeeder extends Seeder
         Category::query()->create([
             'name' => 'category 5'
         ]);
-    }
+    }//good
 }

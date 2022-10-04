@@ -18,7 +18,7 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         return Inertia::render('Category/Index', compact('categories'));
-    }
+    } //good
 
     /**
      * @throws ValidationException
@@ -32,12 +32,12 @@ class CategoryController extends Controller
         Category::query()->create($validated);
 
         return Redirect::route("categories.index");
-    }
+    }//good
 
     public function edit(Category $category): Response
     {
         return Inertia::render('Category/Edit', compact('category'));
-    }
+    }//good
 
     /**
      * @throws ValidationException
@@ -53,10 +53,11 @@ class CategoryController extends Controller
         $category->save();
 
         return Redirect::route("categories.index");
-    }
+    }//good
 
     public function destroy(Category $category): RedirectResponse
     {
+        //what to do with products that has this category
         $category->delete();
 
         return Redirect::route("categories.index");

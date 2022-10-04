@@ -20,6 +20,6 @@ class AdministratorSeeder extends Seeder
             'email' => 'admin@mail.com',
             'password' => bcrypt('admin123'),
             'is_admin' => true,
-        ]);
+        ]); //good
     }
 }

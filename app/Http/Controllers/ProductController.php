@@ -21,14 +21,14 @@ class ProductController extends Controller
         $products = Product::query()->with('category')->paginate(2);
 
         return Inertia::render('Product/Index', compact('products'));
-    }
+    }//good
 
     public function create(): Response
     {
         $categories = Category::all();
 
         return Inertia::render('Product/Create', compact('categories'));
-    }
+    } //good
 
     /**
      * @throws ValidationException
@@ -36,21 +36,22 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validate($request, [
-            'category_id' => 'required',
+            'category_id' => 'required', //what if given category_id is string  or non existing id 
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required', //what if given price is string 
             'description' => 'required',
             'images' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,svg,webp'
+            'images.*' => 'image|mimes:jpeg,png,jpg,svg,webp' //good
         ]);
 
         unset($validated['images']);
 
         $product = new Product($validated);
 
+        //what if category is not found?
         Category::query()->find($validated['category_id'])->products()->save($product);
 
-        $this->saveImage($request, $product);
+        $this->saveImage($request, $product); //good
 
         return Redirect::route("products.index");
     }
@@ -58,6 +59,7 @@ class ProductController extends Controller
     public function edit(Product $product): Response
     {
         $categories = Category::all();
+        //showProduct is not needed. You can call ->load on product and send it to front-end
         $showProduct = $product->load('category', 'images');
 
         return Inertia::render('Product/Edit', compact('categories', 'showProduct'));
@@ -76,16 +78,16 @@ class ProductController extends Controller
     public function update(Product $product, Request $request): RedirectResponse
     {
         $validated = $this->validate($request, [
-            'category_id' => 'required',
+            'category_id' => 'required', //what if category_id is not numeric or is non existing
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required', //what if price is not numeric
             'description' => 'required',
-            'images' => 'nullable|exclude_if:image,null',
+            'images' => 'nullable|exclude_if:image,null', // we dont have image? 
             'images*' => 'nullable|exclude_if:image,null|image|mimes:jpeg,png,jpg,svg,webp'
         ]);
 
         unset($validated['images']);
-        $category = $validated['category_id'];
+        $category = $validated['category_id']; //what if is null
         unset($validated['category_id']);
 
         $product->category()->associate($category);
@@ -101,10 +103,10 @@ class ProductController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         $product->images()->each(function ($image) {
-            Storage::delete($image->getRawOriginal());
+            Storage::delete($image->getRawOriginal()); //good
         });
-        $product->images()->delete();
-        $product->delete();
+        $product->images()->delete(); //good
+        $product->delete(); //good
         return Redirect::route("products.index");
     }
 
@@ -126,7 +128,9 @@ class ProductController extends Controller
                 $product->images()->create([
                     'path' => $filename
                 ]);
+                //if we have 10 images, we will call this function 10 times and will result to 10 queries to the databse. 
+                // try to save with only one query
             }
-        }
+        }//good
     }
 }

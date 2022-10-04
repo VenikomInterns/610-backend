@@ -22,6 +22,7 @@
                     </div>
                     <div class="mt-4">
                         <label>Product Image</label>
+                        <!--Image full url calculations should be done on backend. -->
                         <div v-for="image in showProduct.images" :key="image.id">
                             <img v-if="image.path.charAt(0) === 'd' " :src="image.path"/>
                             <img v-if="image.path.charAt(0) !== 'd' "

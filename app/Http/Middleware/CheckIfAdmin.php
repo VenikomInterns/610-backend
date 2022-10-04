@@ -20,6 +20,6 @@ class CheckIfAdmin
         abort_if(!$user, 401);
         abort_if(!$user->is_admin, 403);
 
-        return $next($request);
+        return $next($request); //good
     }
 }

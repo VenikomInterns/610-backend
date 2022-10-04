@@ -10,6 +10,7 @@ class ProductApiController extends Controller
 {
     public function show(Product $product): JsonResource
     {
+        //we dont really need $showProduct
         $showProduct = $product->load('category', 'images');
 
         return JsonResource::make($showProduct);

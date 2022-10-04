@@ -53,7 +53,10 @@ const submit = () => {
     form.post(route("categories.store"), {
         onSuccess: () => {
             form.name = ''
+            //you can use form.reset()
         }
     });
 }
+
+//vue 3 syntax nice
 </script>

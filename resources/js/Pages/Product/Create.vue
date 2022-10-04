@@ -36,6 +36,7 @@
                                 id="category_id"
                                 type="text"
                                 v-model="form.category_id">
+                                <!--Missing :key="" attribute-->
                                 <option v-for="category in categories" :value="category.id">
                                     {{ category.name }}
                                 </option>
@@ -77,7 +78,7 @@ const form = useForm({
     description: null,
     images: []
 });
-
+//excellent
 const submit = () => {
     form.post(route("products.store"));
 }

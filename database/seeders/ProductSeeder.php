@@ -51,5 +51,6 @@ class ProductSeeder extends Seeder
                 'price' => 150,
                 'description' => 'product 6 description'
         ]);
+        //good
     }
 }

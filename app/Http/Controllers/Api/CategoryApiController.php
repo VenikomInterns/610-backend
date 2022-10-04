@@ -13,12 +13,14 @@ class CategoryApiController extends Controller
         $categories = Category::all();
 
         return JsonResource::collection($categories);
-    }
+    }//good
 
     public function show(Category $category): JsonResource
     {
         $products = $category->load('products');
+        // $products will contain Category with loaded products, but not products List
+        // this means that this variable is wrong
 
-        return JsonResource::make(collect($products));
+        return JsonResource::make(collect($products)); // creating collection of one category?
     }
 }
